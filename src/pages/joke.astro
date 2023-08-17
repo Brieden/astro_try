@@ -1,0 +1,41 @@
+---
+const API_URL = "https://ipapi.co/json/";
+
+let data;
+try {
+  const res = await fetch(API_URL);
+  data = await res.json();
+} catch (error) {
+  console.error("Fehler beim Abrufen der Geolokalisierung:", error);
+}
+
+let joke = "";
+const country = data?.country_name;
+const region = data?.region;
+
+switch (country) {
+  case "Germany":
+    joke = "Why did the German comedian get a standing ovation in the U.S.? He tried saying 'squirrel'. They thought it was his best joke, but he was just talking about the park!";
+    break;
+  case "France":
+    joke = "Why do the French love omelettes so much? Because they love eggs!";
+    break;
+  case "United States":
+    joke =
+      "Why did the scarecrow win an award? Because he was outstanding in his field!";
+    break;
+  case "United Kingdom":
+    joke = "Why did the bicycle stand on its own? It was two-tyred!";
+    break;
+  case "Australia":
+    joke = "How do you make a kangaroo laugh? Tell a joke down under!";
+    break;
+
+  // Füge hier weitere Länderwitze hinzu
+  default:
+    joke = "Sorry I have no joke for your country!";
+}
+---
+
+<h1>Witz basierend auf deinem Land: {region} in {country}</h1>
+<p>{joke}</p>
