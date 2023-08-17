@@ -1,0 +1,49 @@
+---
+// Keine serverseitige Logik hier
+---
+
+<h1>Joke based on your location:</h1>
+<p id="joke">load joke...</p>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const API_URL = "https://ipapi.co/json/";
+      const response = await fetch(API_URL);
+      const data = await response.json();
+      const country = data?.country_name;
+      const region = data?.region;
+      const city = data?.city;
+      let joke = "";
+
+      switch (country) {
+        case "Germany":
+          joke =
+            "Why did the German comedian get a standing ovation in the U.S.? He tried saying 'squirrel'. They thought it was his best joke, but he was just talking about the park!";
+          break;
+        case "France":
+          joke =
+            "Why do the French love omelettes so much? Because they love eggs!";
+          break;
+        case "United States":
+          joke =
+            "Why did the scarecrow win an award? Because he was outstanding in his field!";
+          break;
+        case "United Kingdom":
+          joke = "Why did the bicycle stand on its own? It was two-tyred!";
+          break;
+        case "Australia":
+          joke = "How do you make a kangaroo laugh? Tell a joke down under!";
+          break;
+        default:
+          joke = "Sorry I have no joke for your country!";
+      }
+
+      document.getElementById("joke").textContent = country + ", " + region + ", " + city + ": "+ joke;
+    } catch (error) {
+      console.error("Fehler beim Abrufen der Geolokalisierung:", error);
+      document.getElementById("joke").textContent =
+        "Error getting geolocation.";
+    }
+  });
+</script>
